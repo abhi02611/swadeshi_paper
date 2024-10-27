@@ -1,0 +1,19 @@
+.text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 38px;
+}
+
+.val {
+    font-weight: 900;
+    font-size: 55px;
+    line-height: 66px;
+    color: "white";
+}
+
+.valText {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+    color: "white";
+}
