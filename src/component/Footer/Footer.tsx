@@ -5,163 +5,90 @@ import location from '../../assets/images/location_pin.svg'
 import facebook from '../../assets/images/Facebook.svg';
 import instagram from '../../assets/images/instagram.svg';
 import twitter from '../../assets/images/twitter.png';
+// import './Footer.css';
 
-
-
-export default function() {
+export default function Footer() {
     return (
-        <Box bgColor='#262626' height={'470px'}>
-            <Container maxWidth={"80%"}>
-                <Flex justify={'space-between'} color="white" pt="90px">
-                    <UnorderedList styleType='none' textAlign={'left'}>
-                        <Text
-                            fontWeight={"800"}
-                            fontSize={"30px"}
-                            lineHeight={'41px'}
-                        >CONTACT US</Text>
+        <Box bgColor='#262626' padding={'10px'}>
+           <Container maxWidth={{ base: "100%", md: "95%",lg:"95%" }}>
+                <Flex
+                    direction={{ base: 'column', md: 'row' }}
+                    justify={{ md: 'space-between' }}
+                    color="white"
+                    pt="90px"
+                    className="responsive_grid"
+                    gap={{ base: 8, md: 0 }}
+                >
+                    <UnorderedList styleType='none' textAlign={'left'} mb={{ base: 6, md: 0 }}>
+                        <Text fontWeight={"800"} fontSize={"25px"} lineHeight={'41px'}>CONTACT US</Text>
                         <Flex direction={'column'} gap={'20px'} mt="20px">
                             <ListItem>
-                                <Flex gap={'30px'} justify='flex-start' align={'center'}>
+                                <Flex gap={'30px'} align={'center'}>
                                     <Image src={phone} height={'35px'} width={'35px'} />
-                                    <Text
-                                        fontWeight={"400"}
-                                        fontSize={"20px"}
-                                        lineHeight={'27px'}
-                                    >(+91) 1234567890</Text>
+                                    <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'}>(+91) 1234567890</Text>
                                 </Flex>
                             </ListItem>
                             <ListItem>
-                                <Flex gap={'30px'} justify='flex-start' align={'center'}>
+                                <Flex gap={'30px'} align={'center'}>
                                     <Image src={mail} height={'35px'} width={'35px'} />
-                                    <Text
-                                        fontWeight={"400"}
-                                        fontSize={"20px"}
-                                        lineHeight={'27px'}
-                                    >swadeshipaper@gmail.com</Text>
+                                    <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'}>swadeshipaper@gmail.com</Text>
                                 </Flex>
                             </ListItem>
                             <ListItem>
-                                <Flex gap={'30px'} justify='flex-start' align={'center'}>
+                                <Flex gap={'30px'} align={'center'}>
                                     <Image src={location} height={'35px'} width={'35px'} />
-                                    <Text
-                                        fontWeight={"400"}
-                                        fontSize={"20px"}
-                                        lineHeight={'27px'}
-                                    >Mi donec risus commodo auctor phasellus.</Text>
+                                    <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'}>Mi donec risus commodo auctor phasellus.</Text>
                                 </Flex>
                             </ListItem>
                         </Flex>
                     </UnorderedList>
-                    <Flex direction={'column'}>
-                        <Text
-                            fontWeight={"800"}
-                            fontSize={"30px"}
-                            lineHeight={'41px'}
-                            textAlign={'left'}
-                        >QUICK SHOP</Text>
-                        <UnorderedList mt="20px">
-                            <ListItem>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                    mt="20px"
-                                >My Account</Text>
-                            </ListItem>
-                            <ListItem>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                    mt="20px"
-                                >Our Services</Text>
-                            </ListItem>
-                            <ListItem>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                    mt="20px"
-                                >Our Case Study</Text>
-                            </ListItem>
-                            <ListItem>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                    mt="20px"
-                                >Customer Review</Text>
-                            </ListItem>
+                    <Flex direction={'column'} mb={{ base: 6, md: 0 }}>
+                        <Text fontWeight={"800"} fontSize={"25px"} lineHeight={'41px'}>QUICK SHOP</Text>
+                        <UnorderedList mt="20px" spacing={4}>
+                            {['My Account', 'Our Services', 'Our Case Study', 'Customer Review'].map((item) => (
+                                <ListItem key={item}>
+                                    <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'}>{item}</Text>
+                                </ListItem>
+                            ))}
                         </UnorderedList>
                     </Flex>
                     <Flex direction={'column'} gap={'20px'}>
-                        <Text
-                            fontWeight={"800"}
-                            fontSize={"30px"}
-                            lineHeight={'41px'}
-                        >Get Social
+                        <Text fontWeight={"800"} fontSize={"25px"} lineHeight={'41px'}>Get Social</Text>
+                        <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'} maxWidth={'450px'}>
+                            Subscribe to Our Newsletter to get Important News, Amazing Offers & Inside Scoops:
                         </Text>
-                        <Text
-                            fontWeight={"400"}
-                            fontSize={"20px"}
-                            lineHeight={'27px'}
-                            width={'450px'}
-                        >Subscribe to Our Newsletter to get Important News, Amazing Offers & Inside Scoops:
-                        </Text>
-                        <Box>
-                            <InputGroup size='md'>
-                                <Input
-                                    type={'text'}
+                        <InputGroup size='md'>
+                            <Input
+                                type={'text'}
+                                placeholder="Email address"
+                                sx={{
+                                    borderRadius: '0',
+                                    padding: '10px',
+                                    background: "#fff"
+                                }}
+                            />
+                            <InputRightElement width='130px'>
+                                <Button
+                                    h='100%'
                                     sx={{
                                         borderRadius: '0',
-                                        padding: 0,
-                                        background: "#fff"
-
+                                        backgroundColor: '#9A0172',
+                                        color: "#fff",
+                                        padding: "20px"
                                     }}
-                                />
-                                <InputRightElement width='130px'>
-                                    <Button
-                                        h='100%'
-                                        sx={{
-                                            borderRadius: '0',
-                                            backgroundColor: '#9A0172',
-                                            color: "#fff",
-                                            padding: "20px"
-
-                                        }}
-                                    >
-                                        SUBSCRIBE
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Box>
-                        <Flex gap={'10px'}>
-                            <Flex gap={"10px"} justify={'center'} align={'center'}>
-                                <Box><Image src={facebook} height={'23px'} width={'23px'} /></Box>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                >Facebook</Text>
-                            </Flex>
-                            <Divider orientation="vertical" />
-                            <Flex gap={"10px"} justify={'center'} align={'center'}>
-                                <Box><Image src={instagram} height={'23px'} width={'23px'} /></Box>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                >Instagram</Text>
-                            </Flex>
-                            <Divider orientation="vertical" />
-                            <Flex gap={"10px"} justify={'center'} align={'center'}>
-                                <Box><Image src={twitter} height={'23px'} width={'23px'} /></Box>
-                                <Text
-                                    fontWeight={"400"}
-                                    fontSize={"20px"}
-                                    lineHeight={'27px'}
-                                >Twitter</Text>
-                            </Flex>
+                                >
+                                    SUBSCRIBE
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <Flex gap={'10px'} wrap={'wrap'} justify={{ base: 'center', md: 'flex-start' }}>
+                            {[{ icon: facebook, name: "Facebook" }, { icon: instagram, name: "Instagram" }, { icon: twitter, name: "Twitter" }].map((social, idx) => (
+                                <Flex key={idx} gap={"10px"} align={'center'}>
+                                    <Image src={social.icon} height={'23px'} width={'23px'} />
+                                    <Text fontWeight={"400"} fontSize={"20px"} lineHeight={'27px'}>{social.name}</Text>
+                                    {idx < 2 && <Divider orientation="vertical" display={{ base: 'none', md: 'inline-block' }} />}
+                                </Flex>
+                            ))}
                         </Flex>
                     </Flex>
                 </Flex>
@@ -173,17 +100,11 @@ export default function() {
                     }}
                 />
                 <center>
-                    <Text
-                        fontWeight={"400"}
-                        fontSize={"18px"}
-                        lineHeight={'30px'}
-                        color='white'
-                        marginTop={'10px'}
-                    >
-                        Copyrights © 2024 All Rights Reserved by Swadeshi Paper.
+                    <Text fontWeight={"400"} fontSize={"18px"} lineHeight={'30px'} color='white' mt={'20px'} mb={'30px'}>
+                        Copyrights © 2024 All Rights Reserved by Swadeshi Paper.
                     </Text>
                 </center>
             </Container>
         </Box>
-    )
+    );
 }

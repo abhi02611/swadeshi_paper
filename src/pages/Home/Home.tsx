@@ -118,35 +118,49 @@ export default function Home() {
 
     return (
         <div>
-            <Box width={'100%'} height={'700px'}>
+            <Box width={'100%'} height={'100%'}>
                 <ImageSlider />
             </Box>
             <Box>
-                <Container maxW='80%' as="section" mt={'50px'}>
+                <Container maxWidth={{ base: "100%", md: "95%", lg: "90%" }} mt={'50px'}>
                     <MainHeading title="OUR SERVICES" type={'h1'} size="3xl" />
 
-                    <Flex mt={'70px'} justify="space-between">
+                    <Flex
+                        mt={{ base: '30px', md: '70px' }}
+                        direction={{ base: 'column', md: 'row' }}
+                        align={{ base: 'center', md: 'start' }}
+                        justify="space-between"
+                        gap={{ base: '20px', md: '0' }}
+                    >
                         <Box
-                            height={'550px'}
-                            width={'700px'}
+                            height={{ base: '300px', md: '550px' }}
+                            width={{ base: '90%', md: '700px' }}
+                            mr={{ base: '0', sm: '0', md: '70px', la: '70px' }}
                             bgImage={img1}
-                            roundedTopRight={'200px'}
-                            roundedBottomLeft={'200px'}
+                            bgSize="cover"
+                            bgPosition="center"
+                            marginRight={{base: '60px', sm: '0px', md: '60px'}}
+                            roundedTopRight={{ base: '50px', md: '200px' }}
+                            roundedBottomLeft={{ base: '50px', md: '200px' }}
+                        />
+
+                        <Box
+                            height={{ base: 'auto', md: '550px' }}
+                            width={{ base: '90%', md: '600px' }}
+                            mt={{ base: '20px', md: '30px' }}
                         >
-                        </Box>
-                        <Box height={'550px'} width={'600px'} mt={'30px'}>
                             <Box>
-                                <Heading as={'h2'}>PRINTING SERVICES</Heading>
+                                <Heading as={'h2'} fontSize={{ base: '24px', md: '32px' }}>PRINTING SERVICES</Heading>
                                 <Divider sx={dividerStyle} />
                             </Box>
                             <Box>
-                                <Text className="text" mt={'50px'}>
+                                <Text className="text" mt={{ base: '20px', md: '50px' }}>
                                     Our comprehensive printing services cater to all your personal and
                                     business needs, offering a wide range of high-quality printed materials.
                                     From custom wedding invitations and business cards to large-scale banners and
                                     promotional.
                                 </Text>
-                                <UnorderedList className="text">
+                                <UnorderedList className="text" mt={{ base: '10px', md: '20px' }}>
                                     <ListItem>
                                         <strong>Custom Design: </strong>Work with our skilled designers to create unique, personalized designs that align with your vision.
                                     </ListItem>
@@ -154,98 +168,149 @@ export default function Home() {
                                         <strong>High-Quality Printing: </strong>Utilize state-of-the-art printing technology for crisp, vibrant prints on various mediums.
                                     </ListItem>
                                 </UnorderedList>
-                                <Box mt={'20px'}>
-                                    <Buttons text={"Learn More"} />
+                                <Box mt={{ base: '15px', md: '20px' }}>
+                                    <Buttons text="Learn More" />
                                 </Box>
                             </Box>
                         </Box>
                     </Flex>
-                    <Flex mt={'70px'} justify="space-between" gap={'20px'}>
-                        <Flex direction={'column'} justify="center" height={'550px'} width={'598px'} mt={'30px'}>
+
+
+
+
+                    <Flex
+                        mt={{ base: '30px', md: '70px' }}
+                        direction={{ base: 'column', md: 'row' }}
+                        align={{ base: 'center', md: 'start' }}
+                        justify="space-between"
+                        gap={{ base: '20px', md: '20px' }}
+                    >
+                        <Flex
+                            direction="column"
+                            justify="center"
+                            height={{ base: 'auto', md: '550px' }}
+                            width={{ base: '90%', md: '598px' }}
+                            mt={{ base: '0', md: '30px' }}
+                            textAlign={{ base: 'center', md: 'left' }}
+                        >
                             <Box>
-                                <Heading as={'h2'}>ALWAYS READY TO HELP PRINTERS & ADVERTISERS</Heading>
+                                <Heading as="h2" fontSize={{ base: '24px', md: '32px' }}>ALWAYS READY TO HELP PRINTERS & ADVERTISERS</Heading>
                                 <Divider sx={dividerStyle} />
                             </Box>
                             <Box>
-                                <Text className="text" mt={'30px'}>
-                                    Unity empowers us. We can work alone, but together we will win. Unity is strength, where there is team work and collaborations, wonderfull things can be achieved.
+                                <Text className="text" mt={{ base: '20px', md: '30px' }}>
+                                    Unity empowers us. We can work alone, but together we will win. Unity is strength, where there is teamwork and collaboration, wonderful things can be achieved.
                                 </Text>
                             </Box>
                         </Flex>
+
                         <Box
-                            height={'550px'}
-                            width={'840px'}
+                            height={{ base: '300px', md: '550px' }}
+                            width={{ base: '90%', md: '840px' }}
                             bgImage={img2}
-                        >
-                        </Box>
+                            bgSize="cover"
+                            bgPosition="center"
+                            mt={{ base: '20px', md: '0' }}
+                        />
                     </Flex>
+
+
+
                 </Container>
-                <Container maxW='80%' as="section" mt={'90px'}>
-                    <Flex justify={'center'}>
+
+
+
+
+
+                <Container maxW='95%' as="section" mt={'70px'}>
+                    <Flex
+                        justify={'center'}
+                        wrap="wrap"
+                    >
                         {exportMaskData.map((mask, i) => {
                             return (
                                 <Box
-                                    height={'413px'}
-                                    width={'390px'}
-                                    padding={'70px'}
+                                    height={{ base: 'auto', md: '413px' }}
+                                    padding={{ base: '40px', md: '70px' }}
+                                    width={{ base: '95%', sm: '100%', md: '24.5%', lg: '24.5%' }}
                                     bgColor={mask.bgcolor}
                                     key={'mask_' + i}
+                                    display="flex"
+                                    flexDirection="column"
+                                    alignItems="center"
+                                    justifyContent="center"
                                 >
                                     <Flex
                                         direction={'column'}
-                                        gap={'40px'}
                                         alignItems="center"
-                                        justify={'center'}>
+                                        justify={'center'}
+                                    >
                                         <Box>
                                             <Image
-                                                height={'104px'}
-                                                width={'104px'}
-                                                src={mask.img} alt='Dan Abramov' />
+                                                height={{ base: '80px', md: '104px' }}
+                                                width={{ base: '80px', md: '104px' }}
+                                                src={mask.img}
+                                                alt='Dan Abramov'
+                                            />
                                         </Box>
-                                        <Text className="val" color='white'>{mask.val}</Text>
-                                        <Text className="valText" color='white'>{mask.text}</Text>
+                                        <Text className="val" color='white' fontSize={{ base: '16px', md: '20px' }}>
+                                            {mask.val}
+                                        </Text>
+                                        <Text className="valText" color='white' fontSize={{ base: '14px', md: '16px' }}>
+                                            {mask.text}
+                                        </Text>
                                     </Flex>
-
                                 </Box>
                             )
                         })}
                     </Flex>
 
                 </Container>
-                <Container maxW='80%' as="section" mt={'90px'}>
-                    <Flex justify={'center'} gap={'20px'}>
+
+
+                <Container maxW='95%' as="section" mt={'90px'}>
+                    <Flex justify={'center'} wrap="wrap" gap={{ base: '20px', md: '30px' }}>
                         {missionVissionData.map((data, i) => {
                             return (
-                                <Flex key={'vission_' + i}>
-                                    <Flex direction={'column'}
-                                        height={"642px"}
-                                        width={'370px'}
+                                <Flex key={'vission_' + i}
+                                    direction={{ base: 'column', md: 'row' }}
+                                    alignItems="center"
+                                    justify="center"
+                                    width={{ base: '100%', sm: '100%', md: '100%', lg: '48%' }} >
+                                    <Flex
+                                        direction={'column'}
+                                        height={"auto"}
+                                        width={{ base: '100%', md: '370px' }}
+                                        minHeight={{ base: '300px', sm: '300px', md: '642px', lg: '642px' }}
                                         bgColor={data.color}
                                         roundedTopLeft={'15px'}
                                         roundedBottomLeft={'15px'}
-                                        padding={"20px"}
+                                        padding={{ base: '15px', sm: '15px', md: '50px' }}
+                                        paddingTop={{ base: '15px', sm: '15px', md: '130px' }}
                                     >
-                                        <Heading as={'h3'}>{data.title}</Heading>
-                                        <Text>{data.content}</Text>
+                                        <Heading as={'h3'} fontSize={{ base: '40px', md: '45px' }} w={{ base: '80%', sm: '100%', md: '90%' }}>{data.title}</Heading>
+                                        <Text fontSize={{ base: '14px', md: '16px' }}>{data.content}</Text>
                                         <Box mt={'20px'}>
                                             <Buttons text={"Learn More"} />
                                         </Box>
                                     </Flex>
-                                    <Box>
-                                        <Image height={'642px'} width={'300px'} src={data.img} />
+                                    <Box width={{ base: '100%', md: '300px' }}>
+                                        <Image height={{ base: '400px', sm: '400px', md: '642px' }} width={'100%'} src={data.img} objectFit="cover" backgroundPosition={'bottom-center'} />
                                     </Box>
                                 </Flex>
                             )
                         })}
                     </Flex>
 
+
                 </Container>
+
             </Box>
-            
+
             <Container maxW='100%' as="section" mt={'90px'}>
-                <Box width={'100%'} bgColor={'#FAFAFA'} pt="90px">
+                <Box width={'100%'} bgColor={'#FAFAFA'} py="90px">
                     <MainHeading title="Professional Digital Printing" type={'h1'} size="3xl" />
-                    <Container maxWidth={'70%'}>
+                    <Container maxWidth={'90%'}>
                         <Flex wrap={'wrap'} justify='space-between'>
                             {digitalPrintingData.map((dprint, i) => {
                                 return (
@@ -254,8 +319,8 @@ export default function Home() {
                                         direction={'column'}
                                         justify='center'
                                         align={'center'}
-                                        width="336px"
-                                        my={'60px'}
+                                        width={{ base: '100%', sm: '100%', md: '40%', lg: '28%' }}
+                                        my={{base: '20px', md: '50px', lg:'50px' }}
                                         gap={'20px'}>
                                         <Flex
                                             height={'113px'}
@@ -287,12 +352,12 @@ export default function Home() {
                         </Flex>
                     </Container>
                 </Box>
-        
+
             </Container>
-            <Container maxWidth={'90%'} mt="90px">
+            <Container maxWidth={'95%'} mt="90px">
                 <MainHeading title="We are Dedicated To" type={'h1'} size="3xl" />
                 <Box mt={"50px"}>
-                    <Image src={dedicated_img}/>
+                    <Image src={dedicated_img} />
                 </Box>
             </Container>
             <Container maxWidth={'100%'} mt="90px"  >
@@ -306,7 +371,7 @@ export default function Home() {
                                     fontSize={'18px'}
                                     lineHeight={'36px'}
                                     textAlign='center'
-                                    width='42%'
+                                    width={{base: '100%', sm: '95%', md: '70%', lg:'70%'}}
                                 >
                                     {review.content}
                                 </Text>
@@ -323,10 +388,10 @@ export default function Home() {
                         </Flex>
                     </Box>
                 </Box>
-               
-                
+
+
             </Container>
-           
+
         </div>
     )
 }

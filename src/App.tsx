@@ -14,6 +14,7 @@ import SignIn from './pages/Login/Login'
 import SignUp from './pages/Reigister/Register'
 import Login from './pages/Login/Login'
 import Register from './pages/Reigister/Register'
+import CartPage from './pages/Cart/Cart'
 
 
 const route = createBrowserRouter([
@@ -32,6 +33,10 @@ const route = createBrowserRouter([
   {
     path: '/checkout',
     element: <CheckOut />
+  },
+  {
+    path: '/cart',
+    element: <CartPage/>
   },
   {
     path: '/login',
