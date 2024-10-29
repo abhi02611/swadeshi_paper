@@ -10,18 +10,29 @@ import {
     Heading,
     Text,
     useColorModeValue,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-export default function () {
+export default function LoginPage() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = () => {
+        // Logic to handle sign-in, e.g., calling an API
+        console.log("Email:", email, "Password:", password);
+    };
+
     return (
         <Flex
-            minH={'100vh'}
+            minH={'100%'}
+            py={'70px'}
             align={'center'}
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}> to your account</Heading>
+                    <Heading fontSize={'4xl'}>Login to your account</Heading>
                 </Stack>
                 <Box
                     rounded={'lg'}
@@ -29,13 +40,21 @@ export default function () {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
-                        <FormControl id="email">
+                        <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
+                            <Input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </FormControl>
-                        <FormControl id="password">
+                        <FormControl id="password" isRequired>
                             <FormLabel>Password</FormLabel>
-                            <Input type="password" />
+                            <Input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </FormControl>
                         <Stack spacing={10}>
                             <Stack
@@ -43,20 +62,28 @@ export default function () {
                                 align={'start'}
                                 justify={'space-between'}>
                                 <Checkbox>Remember me</Checkbox>
-                                <Text color={'blue.400'}>Forgot password?</Text>
+                                <Link to="/forgot-password" className='link'>
+                                    <Text>Forgot password?</Text>
+                                </Link>
                             </Stack>
                             <Button
-                                bg={'blue.400'}
+                                bg={'#B12291'}
                                 color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
+                                
+                                onClick={handleSubmit}>
                                 Sign in
                             </Button>
                         </Stack>
                     </Stack>
                 </Box>
+
+                <Text fontSize={'md'} textAlign={'center'}>
+                    New to Swadesi?{' '}
+                    <Link to="/register" style={{ color: 'blue.400' }} className='link'>
+                        Join Now
+                    </Link>
+                </Text>
             </Stack>
         </Flex>
-    )
+    );
 }
