@@ -5,3 +5,10 @@ body{
 .chakra-button:hover{
   background-color: #f06fd7!important;
 }
+.link{
+  color: #B12291
+}
+
+.link:hover{
+  color: #f06fd7;
+}
