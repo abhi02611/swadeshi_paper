@@ -12,18 +12,40 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    Link,
+    Link as ChakraLink,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom';
 
 export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false)
+    const [isOtpSent, setIsOtpSent] = useState(false)
+    const [otp, setOtp] = useState('')
+    const [isOtpVerified, setIsOtpVerified] = useState(false)
+
+    const handleSendOtp = () => {
+        // Here you would integrate the function to send OTP to the user
+        // Simulate OTP send with a state change
+        setIsOtpSent(true)
+        console.log('OTP sent to the user.')
+    }
+
+    const handleVerifyOtp = () => {
+        // Here you would integrate OTP verification logic
+        if (otp === '123456') { // Replace with server-side verification logic
+            setIsOtpVerified(true)
+            console.log('OTP verified.')
+        } else {
+            alert('Invalid OTP. Please try again.')
+        }
+    }
 
     return (
         <Flex
-            minH={'100vh'}
+            minH={'100%'}
             align={'center'}
+            py={'30px'}
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
@@ -74,7 +96,7 @@ export default function SignupCard() {
                             </InputGroup>
                         </FormControl>
                         <FormControl id="confirm_password" isRequired>
-                            <FormLabel>Confime Password</FormLabel>
+                            <FormLabel>Confirm Password</FormLabel>
                             <InputGroup>
                                 <Input type={showPassword ? 'text' : 'password'} />
                                 <InputRightElement h={'full'}>
@@ -86,21 +108,44 @@ export default function SignupCard() {
                                 </InputRightElement>
                             </InputGroup>
                         </FormControl>
-                        <Stack spacing={10} pt={2}>
-                            <Button
-                                loadingText="Submitting"
-                                size="lg"
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                                Sign up
-                            </Button>
+                        <Stack spacing={4}>
+                            {!isOtpSent ? (
+                                <Button
+                                    size="lg"
+                                    bg={'#B12291'}
+                                    color={'white'}
+                                    onClick={handleSendOtp}>
+                                    Send OTP
+                                </Button>
+                            ) : (
+                                <>
+                                    <FormControl id="otp" isRequired>
+                                        <FormLabel>Enter OTP</FormLabel>
+                                        <Input
+                                            type="number"
+                                            placeholder="Enter the OTP sent to your Email"
+                                            value={otp}
+                                            onChange={(e) => setOtp(e.target.value)}
+                                        />
+                                    </FormControl>
+                                    <Button
+                                        size="lg"
+                                        bg={'#B12291'}
+                                        color={'white'}
+                                        onClick={handleVerifyOtp}>
+                                        Verify OTP
+                                    </Button>
+                                </>
+                            )}
                         </Stack>
+                        {isOtpVerified && (
+                            <Text color="green.500" textAlign="center">
+                                OTP Verified Successfully!
+                            </Text>
+                        )}
                         <Stack pt={6}>
                             <Text align={'center'}>
-                                Already a user? <Link color={'blue.400'}>Login</Link>
+                                Already a user? <Link color={'#B12291'} className='link' to="/login">Login</Link>
                             </Text>
                         </Stack>
                     </Stack>
