@@ -5,28 +5,30 @@ import sampleImg from '../../assets/images/069_Photoroom-20240814-223342_5.svg';
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([
-        { id: 1, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg }, 
-        { id: 2, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg }, 
-        { id: 3, name: "Elegant Wedding Card", price: 399, quantity: 1, discount: 0, img: sampleImg }, 
+        { id: 1, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 50, discount: 50, img: sampleImg }, 
+        { id: 2, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 50, discount: 50, img: sampleImg }, 
+        { id: 3, name: "Elegant Wedding Card", price: 399, quantity: 50, discount: 0, img: sampleImg }, 
     ]);
 
     // Calculate subtotal
     const subtotal = cartItems.reduce((acc, item) => acc + (item.price - item.discount) * item.quantity, 0);
 
-    // Quantity increase
+    // Quantity increase (doubles the quantity)
     const increaseQuantity = (id) => {
         setCartItems((prevItems) =>
             prevItems.map((item) =>
-                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+                item.id === id ? { ...item, quantity: item.quantity * 2 } : item
             )
         );
     };
 
-    // Quantity decrease
+    // Quantity decrease (halves the quantity but not below 50)
     const decreaseQuantity = (id) => {
         setCartItems((prevItems) =>
             prevItems.map((item) =>
-                item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+                item.id === id && item.quantity > 50
+                    ? { ...item, quantity: Math.max(50, item.quantity / 2) }
+                    : item
             )
         );
     };
@@ -170,5 +172,7 @@ const CartPage = () => {
         </Container>
     );
 };
+
+
 
 export default CartPage;
