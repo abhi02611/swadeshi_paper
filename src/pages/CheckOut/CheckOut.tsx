@@ -1,5 +1,19 @@
-import { Box, Container, Text, Flex, Button, VStack, Input, FormControl, FormLabel, HStack, Divider, Select } from "@chakra-ui/react";
+import {
+    Box,
+    Container,
+    Text,
+    Flex,
+    Button,
+    Input,
+    FormControl,
+    FormLabel,
+    HStack,
+    Divider,
+    Select,
+    Image
+} from "@chakra-ui/react";
 import { useState } from "react";
+import { CloseIcon } from "@chakra-ui/icons";
 import sampleImg from '../../assets/images/069_Photoroom-20240814-223342_5.svg';
 
 const stateCityData = {
@@ -32,17 +46,14 @@ const stateCityData = {
     "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rudrapur", "Haldwani", "Roorkee", "Pithoragarh", "Champawat", "Tehri", "Uttarkashi"],
     "West Bengal": ["Kolkata", "Siliguri", "Howrah", "Durgapur", "Asansol", "Bardhaman", "Malda", "Kalyani", "Krishnanagar", "Jalpaiguri"]
 };
+
 const CheckoutPage = () => {
     const [cartItems, setCartItems] = useState([
-        { id: 1, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg }, 
-        { id: 2, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg }, 
-        { id: 3, name: "Elegant Wedding Card", price: 399, quantity: 1, discount: 0, img: sampleImg }, 
+        { id: 1, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg },
+        { id: 2, name: "Laser Cut Paper Wedding Card", price: 570, quantity: 1, discount: 50, img: sampleImg },
+        { id: 3, name: "Elegant Wedding Card", price: 399, quantity: 1, discount: 0, img: sampleImg },
     ]);
 
-    // Calculate subtotal
-    const subtotal = cartItems.reduce((acc, item) => acc + (item.price - item.discount) * item.quantity, 0);
-
-    // Handle form inputs
     const [formData, setFormData] = useState({
         Fname: '',
         Lname: '',
@@ -58,28 +69,46 @@ const CheckoutPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
-        // Update formData
         setFormData(prevFormData => ({
             ...prevFormData,
             [name]: value
         }));
-        
-        // Handle state change
         if (name === 'state') {
-            setCities(stateCityData[value] || []); // Update cities based on selected state
+            setCities(stateCityData[value] || []);
             setFormData(prevFormData => ({
                 ...prevFormData,
-                city: '', // Reset city when state changes
+                city: '',
             }));
         }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add form submission logic here
         console.log("Form submitted:", formData);
     };
+
+    // Helper functions for cart actions
+    const removeItem = (id) => {
+        setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    };
+
+    const increaseQuantity = (id) => {
+        setCartItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        );
+    };
+
+    const decreaseQuantity = (id) => {
+        setCartItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+            )
+        );
+    };
+
+    const subtotal = cartItems.reduce((acc, item) => acc + (item.price - item.discount) * item.quantity, 0);
 
     return (
         <Container maxW={{ base: '95%', md: '90%' }} mt={{ base: '40px', md: '90px' }} mb={{ base: '90px' }}>
@@ -87,34 +116,19 @@ const CheckoutPage = () => {
                 Checkout
             </Text>
 
-            <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" gap="40px">
+            <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" borderWidth={1} borderRadius="lg" boxShadow="md">
                 {/* Left side - Checkout Form */}
-                <Box flex="1">
+                <Box flex="1" p={10}>
+                    <Text fontSize={{ base: '18px', md: '24px' }} fontWeight="600" mb="20px">Shipping Information</Text>
                     <form onSubmit={handleSubmit}>
-                        <HStack spacing={4} mb={4}>
-                            <FormControl id="Fname" isRequired>
-                                <FormLabel>First Name</FormLabel>
-                                <Input type="text" name="Fname" value={formData.Fname} onChange={handleChange} placeholder="First Name" />
-                            </FormControl>
-                            <FormControl id="Lname" isRequired>
-                                <FormLabel>Last Name</FormLabel>
-                                <Input type="text" name="Lname" value={formData.Lname} onChange={handleChange} placeholder="Last Name" />
-                            </FormControl>
-                        </HStack>
-                        
-                        <FormControl id="email" mb={4} isRequired>
-                            <FormLabel>Email</FormLabel>
-                            <Input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" />
-                        </FormControl>
-                        <FormControl id="phone" mb={4} isRequired>
-                            <FormLabel>Your Mobile</FormLabel>
-                            <Input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91-0000-000-000" />
+                        <FormControl id="Fname" mb={4} isRequired>
+                            <FormLabel>Full Name</FormLabel>
+                            <Input type="text" name="Fname" value={formData.Fname} onChange={handleChange} placeholder="First Name" />
                         </FormControl>
                         <FormControl id="address" mb={4} isRequired>
                             <FormLabel>Address</FormLabel>
                             <Input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="123 Main St" />
                         </FormControl>
-                        
                         <HStack spacing={4} mb={4}>
                             <FormControl id="state" isRequired>
                                 <FormLabel>State</FormLabel>
@@ -125,7 +139,6 @@ const CheckoutPage = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-
                             <FormControl id="city" isRequired>
                                 <FormLabel>City</FormLabel>
                                 <Select name="city" value={formData.city} onChange={handleChange} isDisabled={cities.length === 0}>
@@ -135,35 +148,91 @@ const CheckoutPage = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-
                             <FormControl id="zip" isRequired>
                                 <FormLabel>ZIP Code</FormLabel>
                                 <Input type="text" name="zip" value={formData.zip} onChange={handleChange} placeholder="12345" />
                             </FormControl>
                         </HStack>
+                        <FormControl id="email" mb={4} isRequired>
+                            <FormLabel>Email</FormLabel>
+                            <Input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" />
+                        </FormControl>
+                        <FormControl id="phone" mb={4} isRequired>
+                            <FormLabel>Your Mobile</FormLabel>
+                            <Input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91-0000-000-000" />
+                        </FormControl>
 
-                        <Button type="submit" bg="#B12291" color="white" size="lg" width="100%">
-                            Complete Order
+                        <Text fontSize={{ base: '18px', md: '24px' }} fontWeight="600" mt="50px" mb="20px">Payment Information</Text>
+
+                        {/* UPI Payment Section */}
+                        <FormControl id="upiId" mb={4} isRequired>
+                            <FormLabel>UPI ID</FormLabel>
+                            <Input type="text" name="upiId" value={formData.upiId} onChange={handleChange} placeholder="user@bank" />
+                        </FormControl>
+                        <Button bg="#B12291" color="white" size="lg" width="100%" mt={4}>
+                            Verify & Pay
                         </Button>
+
                     </form>
                 </Box>
 
                 {/* Right side - Cart Summary */}
-                <Box width={{ base: '100%', md: '30%' }} borderWidth={1} borderRadius="lg" boxShadow="md" p={5} maxHeight='250px'>
+                <Box width={{ base: '100%', md: '30%' }} background='#ffe6fa' p={10}>
                     <Flex direction="column">
-                        <Text fontSize={{ base: '18px', md: '24px' }} fontWeight="600" mb="10px">Cart Summary</Text>
+                        <Text fontSize={{ base: '18px', md: '24px' }} fontWeight="600" mb="10px">Order Summary</Text>
                         <Divider mb={4} />
                         {cartItems.map((item) => (
-                            <Flex key={item.id} justify="space-between" mb={2}>
-                                <Text fontWeight="500">{item.name}</Text>
-                                <Text>₹{(item.price - item.discount) * item.quantity}</Text>
+                            <Flex key={item.id} justify="space-between" align="center" py="15px" borderBottom="1px solid #fff">
+                                <Flex align="center" width={{ base: '100%', md: '80%' }}>
+                                    <Image
+                                        src={item.img}
+                                        alt={item.name}
+                                        width={{ base: "80px", md: "80px" }}
+                                        height={{ base: "80px", md: "80px" }}
+                                        borderRadius="md"
+                                        objectFit='cover'
+                                    />
+                                    <Box ml="20px">
+                                        <Text fontSize={{ base: '14px', md: '15px' }} fontWeight="700" color="#444">
+                                            {item.name}
+                                        </Text>
+
+                                    </Box>
+                                </Flex>
+                                <Text fontSize="lg" fontWeight="bold" color="#444" width={{ base: '100%', md: '20%' }} textAlign="right">
+                                    ₹{(item.price - item.discount) * item.quantity}
+                                </Text>
                             </Flex>
                         ))}
+
+                        <Divider my={3} />
+
+                        <Flex align="center" width="100%" justify="space-between">
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" mb="10px">Subtotal</Text>
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" color="#B12291">₹{subtotal}</Text>
+                        </Flex>
+
+
+
+                        <Flex align="center" width="100%" justify="space-between">
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" mb="10px">Shipping cost</Text>
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" color="#B12291">₹{subtotal}</Text>
+                        </Flex>
+
+
+                        <Flex align="center" width="100%" justify="space-between">
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" mb="10px">Discount</Text>
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" color="red">-₹{cartItems.reduce((acc, item) => acc + item.discount * item.quantity, 0)}</Text>
+                        </Flex>
+
                         <Divider my={2} />
                         <Flex justify="space-between" fontWeight="bold">
                             <Text>Cart Total</Text>
-                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" mb="10px">₹{subtotal - cartItems.reduce((acc, item) => acc + item.discount * item.quantity, 0)}</Text>
+                            <Text fontSize={{ base: '16px', md: '16px' }} fontWeight="400" mb="10px">₹{subtotal}</Text>
                         </Flex>
+                        <Button type="submit" bg="#B12291" color="white" size="lg" width="100%" marginTop='20px'>
+                            Place Order
+                        </Button>
                     </Flex>
                 </Box>
             </Flex>

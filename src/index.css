@@ -1,3 +1,7 @@
 body{
   overflow-x: hidden;
 }
+
+.chakra-button:hover{
+  background-color: #f06fd7!important;
+}
